@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Its a simple ruby web app that takes in Values from the user about movies and displays it using postgress sql
 
-Things you may want to cover:
+Its made for showing devops work not a ruby on rails skills
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+some devops tools used are
+* Docker
+* kubernetes
+* Teckton for Ci/Cd
+* Docker compose (set up db)
