@@ -1,0 +1,42 @@
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
+<h1>Enter Your Favorite Movie</h1>
+
+<%= form_with model: @movie, url: movies_path, method: :post, local: true do |f| %>
+  <p>
+    <%= f.label :title, "Movie Title:" %>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :director, "Director:" %>
+    <%= f.text_field :director %>
+  </p>
+
+  <p>
+    <%= f.label :release_year, "Release Year:" %>
+    <%= f.number_field :release_year %>
+  </p>
+
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+<% end %>
+
+<h2>Your Favorite Movie:</h2>
+<% if @movie.persisted? %>
+  <p>You entered: <strong><%= @movie.title %></strong> by <%= @movie.director %> (Released in <%= @movie.release_year %>)</p>
+<% end %>
+
+<h2>Website Suggestions:</h2>
+<ul>
+  <% @movies.each do |movie| %>
+    <li><strong><%= movie.title %></strong> - Directed by <%= movie.director %> (Released in <%= movie.release_year %>)</li>
+  <% end %>
+</ul>

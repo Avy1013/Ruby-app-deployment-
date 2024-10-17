@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rails-app
+  template:
+    metadata:
+      labels:
+        app: rails-app
+    spec:
+      containers:
+      - name: rails-container
+        image: docker.io/avy1013/my-rails-app:latestv4
+        env:
+        - name: DATABASE_HOST
+          value: postgres
+        - name: DATABASE_USERNAME
+          value: postgres
+        - name: DATABASE_PASSWORD
+          value: mypassword
+        - name: POSTGRES_DB
+          value: movies_app_development
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: rails-secret
+              key: SECRET_KEY_BASE
+        ports:
+        - containerPort: 3000 
+      

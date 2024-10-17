@@ -1,0 +1,27 @@
+
+
+services:
+  db:
+    image: postgres:13 # You can choose the version you prefer
+    environment:
+      POSTGRES_USER: myuser  # Replace with your PostgreSQL username
+      POSTGRES_PASSWORD: mypassword  # Replace with your PostgreSQL password
+      POSTGRES_DB: movies_app_development
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://myuser:mypassword@db/movies_app_development
+      - SECRET_KEY_BASE=89a7666940bc9553d5a3943719db3a849e444da4c2fa76f178b1e830ec0151a2e3ecc98c871a852ef4535ce57726e218f21cb4758d88222d7544c7280c8bfb63
+
+volumes:
+  pg_data:
