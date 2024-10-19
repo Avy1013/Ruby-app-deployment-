@@ -31,4 +31,18 @@ spec:
               key: SECRET_KEY_BASE
         ports:
         - containerPort: 3000 
-      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails-service
+  labels:
+    app: rails-app
+spec:
+  type: ClusterIP  # Change if you want external access
+  ports:
+    - port: 3000       # Port exposed by the service
+      targetPort: 3000 # Port on the container
+      protocol: TCP
+  selector:
+    app: rails-app   
